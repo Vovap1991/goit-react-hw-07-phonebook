@@ -6,18 +6,13 @@ import {
   NoContactsMessage,
 } from './ContactList.styled';
 import { deleteContact } from '../../redux/contactsSlice';
-import { getContacts, getFilter } from '../../redux/selectors';
+import { selectVisibleContacts } from '../../redux/selectors';
 
 export const ContactList = () => {
-  const contacts = useSelector(getContacts);
-  const filter = useSelector(getFilter);
+  const contacts = useSelector(selectVisibleContacts);
   const dispatch = useDispatch();
 
-  const visibleContacts = contacts.contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filter.filter.toLowerCase())
-  );
-
-  if (visibleContacts.length === 0) {
+  if (contacts.length === 0) {
     return (
       <NoContactsMessage>
         Sorry! No contacts in your phonebook!
@@ -26,7 +21,7 @@ export const ContactList = () => {
   }
   return (
     <List>
-      {visibleContacts.map(contact => (
+      {contacts.map(contact => (
         <ListItem key={contact.id}>
           {contact.name}:{''} {contact.number}
           <DeleteContactButton

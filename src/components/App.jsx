@@ -2,21 +2,16 @@ import { ContactForm } from './Form/Form';
 import { Application, FormTitle } from './App.styled';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
-
-// Зовнішня функція (передана в useState контактів) для отримання данних з local storage. Якщо там нічого немає - то рендер initial contacts
-// const getInitialContacts = () => {
-//   const savedContacts = localStorage.getItem('contacts');
-//   if (savedContacts !== null) {
-//     return JSON.parse(savedContacts);
-//   }
-//   return initialContacts;
-// };
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchContacts } from 'redux/operations';
 
 export const App = () => {
-  // // Запис контактів у local storage
-  // useEffect(() => {
-  //   localStorage.setItem('contacts', JSON.stringify(contacts));
-  // }, [contacts]);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   return (
     <Application>
