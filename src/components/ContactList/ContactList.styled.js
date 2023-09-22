@@ -11,6 +11,9 @@ export const List = styled.ul`
 
 export const ListItem = styled.li`
   font-size: 25px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 export const DeleteContactButton = styled.button`

@@ -11,7 +11,8 @@ import {
   StyledErrorNumber,
 } from './Form.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/contactsSlice';
+import { addContact } from '../../redux/operations';
+import { selectContacts } from '../../redux/selectors';
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string().min(3, 'Too Short!').required('Required'),
@@ -19,7 +20,7 @@ const SignupSchema = Yup.object().shape({
 });
 
 export const ContactForm = () => {
-  const contacts = useSelector(state => state.contacts);
+  const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
   return (
     <Formik
@@ -32,7 +33,7 @@ export const ContactForm = () => {
         const enteredName = values.name;
         const enteredNumber = values.number;
 
-        const isContactExists = contacts.contacts.find(
+        const isContactExists = contacts.find(
           contact =>
             contact.name.toLowerCase() === enteredName.toLowerCase() ||
             contact.number === enteredNumber
